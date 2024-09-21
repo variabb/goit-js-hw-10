@@ -1,2 +1,2 @@
-import"./assets/styles-B4s-4mBC.js";console.log("snackbar");
+import"./assets/modulepreload-polyfill-B5Qt9EMX.js";/* empty css                      */console.log("snackbar");
 //# sourceMappingURL=2-snackbar.js.map
