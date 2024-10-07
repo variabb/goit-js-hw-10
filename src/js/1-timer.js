@@ -24,6 +24,7 @@ const options = {
     if (selectedDates[0] <= new Date()) {
       return iziToast.error({
         position: 'topRight',
+
         message: 'Please choose a date in the future',
       });
     }
@@ -39,6 +40,7 @@ function startTimer() {
   startButton.disabled = true;
 
   intervalId = setInterval(updateTimer, 1000);
+  return;
 }
 
 function updateTimer() {
@@ -47,36 +49,32 @@ function updateTimer() {
   if (curentTime <= 0) {
     datePicker.disabled = false;
     clearInterval(intervalId);
-    resetTimer();
     return;
   }
 
   const { days, hours, minutes, seconds } = convertMs(curentTime);
 
-  dayOutput.textContent = String(days).padStart(2, '0');
-  hoursOutput.textContent = String(hours).padStart(2, '0');
-  minutesOutput.textContent = String(minutes).padStart(2, '0');
-  secondOutput.textContent = String(seconds).padStart(2, '0');
+  dayOutput.textContent = String(days).padStart(2, 0);
+  hoursOutput.textContent = String(hours).padStart(2, 0);
+  minutesOutput.textContent = String(minutes).padStart(2, 0);
+  secondOutput.textContent = String(seconds).padStart(2, 0);
 }
 
 function convertMs(ms) {
+  // Number of milliseconds per unit of time
   const second = 1000;
   const minute = second * 60;
   const hour = minute * 60;
   const day = hour * 24;
 
+  // Remaining days
   const days = Math.floor(ms / day);
+  // Remaining hours
   const hours = Math.floor((ms % day) / hour);
+  // Remaining minutes
   const minutes = Math.floor(((ms % day) % hour) / minute);
+  // Remaining seconds
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
   return { days, hours, minutes, seconds };
-}
-
-function resetTimer() {
-  startButton.disabled = true; 
-  dayOutput.textContent = '00';
-  hoursOutput.textContent = '00';
-  minutesOutput.textContent = '00';
-  secondOutput.textContent = '00';
 }
